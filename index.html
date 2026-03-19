@@ -1,1 +1,1031 @@
-<html><body>test</body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AirRank â Airbnb SEO Optimization Agent</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+  /* âââ Reset & Base âââââââââââââââââââââââââââââââââââââââ */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #0a0a0f;
+    --surface: #13131a;
+    --surface2: #1a1a24;
+    --border: rgba(255,255,255,0.07);
+    --red: #ff5a5f;
+    --green: #00c6a0;
+    --gold: #f7b731;
+    --text: #e8e8f0;
+    --muted: #6b6b80;
+    --font-head: 'Playfair Display', serif;
+    --font-mono: 'DM Mono', monospace;
+    --font-body: 'DM Sans', sans-serif;
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 15px;
+    line-height: 1.6;
+    min-height: 100vh;
+    background-image:
+      linear-gradient(rgba(255,90,95,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,90,95,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+  a { color: var(--red); text-decoration: none; }
+
+  /* âââ Scrollbar âââââââââââââââââââââââââââââââââââââââââââ */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--surface2); border-radius: 3px; }
+
+  /* âââ Layout ââââââââââââââââââââââââââââââââââââââââââââââ */
+  .container { max-width: 860px; margin: 0 auto; padding: 0 20px; }
+
+  /* âââ Header ââââââââââââââââââââââââââââââââââââââââââââââ */
+  header {
+    padding: 32px 0 24px;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+  }
+  .logo {
+    font-family: var(--font-head);
+    font-size: 2.6rem;
+    font-weight: 800;
+    letter-spacing: -1px;
+    background: linear-gradient(135deg, var(--red), #ff8c8f);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .logo span { color: var(--text); -webkit-text-fill-color: var(--text); }
+  .tagline { font-family: var(--font-mono); font-size: 0.78rem; color: var(--muted); margin-top: 6px; letter-spacing: 0.08em; text-transform: uppercase; }
+
+  /* âââ API Key Row âââââââââââââââââââââââââââââââââââââââââ */
+  .api-row {
+    display: flex; align-items: center; gap: 10px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 16px;
+    margin: 24px 0 0;
+  }
+  .api-row label { font-family: var(--font-mono); font-size: 0.75rem; color: var(--muted); white-space: nowrap; flex-shrink: 0; }
+  .api-row input {
+    flex: 1; background: transparent; border: none; outline: none;
+    color: var(--text); font-family: var(--font-mono); font-size: 0.82rem;
+    letter-spacing: 0.04em;
+  }
+  .api-row input::placeholder { color: var(--muted); }
+  .api-lock { font-size: 0.7rem; color: var(--muted); white-space: nowrap; }
+
+  /* âââ Card ââââââââââââââââââââââââââââââââââââââââââââââââ */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+    position: relative;
+  }
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--red), transparent);
+  }
+  .card-body { padding: 24px; }
+
+  /* âââ Tab Navigation ââââââââââââââââââââââââââââââââââââââ */
+  .tabs-wrap { margin-top: 28px; }
+  .tab-nav {
+    display: flex; gap: 6px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 50px;
+    padding: 5px;
+    margin-bottom: 20px;
+    width: fit-content;
+  }
+  .tab-btn {
+    background: transparent;
+    border: none;
+    color: var(--muted);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.04em;
+    padding: 8px 18px;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.25s;
+    white-space: nowrap;
+  }
+  .tab-btn.active {
+    background: var(--red);
+    color: #fff;
+    font-weight: 500;
+  }
+  .tab-btn:hover:not(.active) { color: var(--text); }
+  .tab-pane { display: none; }
+  .tab-pane.active { display: block; }
+
+  /* âââ Form Elements âââââââââââââââââââââââââââââââââââââââ */
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .form-grid .full { grid-column: 1 / -1; }
+  .form-group { display: flex; flex-direction: column; gap: 7px; }
+  .form-group label {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 0.88rem;
+    padding: 10px 13px;
+    outline: none;
+    transition: border-color 0.2s;
+    width: 100%;
+  }
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus { border-color: var(--red); }
+  .form-group select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236b6b80' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; padding-right: 32px; cursor: pointer; }
+  .form-group textarea { resize: vertical; min-height: 90px; }
+  .form-group input::placeholder,
+  .form-group textarea::placeholder { color: var(--muted); }
+
+  /* âââ Analyze Button ââââââââââââââââââââââââââââââââââââââ */
+  .btn-analyze {
+    display: block;
+    width: 100%;
+    margin-top: 28px;
+    padding: 16px;
+    background: linear-gradient(135deg, var(--red), #e04045);
+    border: none;
+    border-radius: 12px;
+    color: #fff;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    cursor: pointer;
+    transition: opacity 0.2s, transform 0.15s;
+    position: relative;
+    overflow: hidden;
+  }
+  .btn-analyze:hover:not(:disabled) { opacity: 0.9; transform: translateY(-1px); }
+  .btn-analyze:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+  .btn-analyze::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.08), transparent);
+  }
+
+  /* âââ Loading âââââââââââââââââââââââââââââââââââââââââââââ */
+  .loading-wrap {
+    display: none;
+    text-align: center;
+    padding: 52px 24px;
+  }
+  .loading-wrap.show { display: block; }
+  .spinner {
+    width: 48px; height: 48px;
+    border: 3px solid var(--surface2);
+    border-top-color: var(--red);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin: 0 auto 20px;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .loading-msg { font-family: var(--font-mono); font-size: 0.82rem; color: var(--muted); min-height: 22px; }
+
+  /* âââ Results âââââââââââââââââââââââââââââââââââââââââââââ */
+  #results { display: none; margin-top: 36px; }
+  #results.show { display: block; }
+
+  .results-grid { display: flex; flex-direction: column; gap: 20px; }
+
+  /* Score Section */
+  .score-section {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 28px;
+    align-items: center;
+  }
+  .score-ring-wrap { position: relative; width: 130px; height: 130px; flex-shrink: 0; }
+  .score-ring-wrap svg { width: 130px; height: 130px; }
+  .score-ring-bg { fill: none; stroke: var(--surface2); stroke-width: 10; }
+  .score-ring-fg {
+    fill: none;
+    stroke-width: 10;
+    stroke-linecap: round;
+    transform: rotate(-90deg);
+    transform-origin: 65px 65px;
+    transition: stroke-dashoffset 1.2s cubic-bezier(0.4,0,0.2,1);
+  }
+  .score-center {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    line-height: 1.1;
+  }
+  .score-num {
+    font-family: var(--font-head);
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1;
+  }
+  .score-lbl { font-family: var(--font-mono); font-size: 0.62rem; color: var(--muted); }
+  .score-meta { flex: 1; }
+  .score-label-big {
+    font-family: var(--font-head);
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .score-summary { color: var(--muted); font-size: 0.88rem; line-height: 1.65; }
+  .sub-scores { display: flex; gap: 14px; margin-top: 14px; flex-wrap: wrap; }
+  .sub-score-chip {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    padding: 5px 12px;
+    border-radius: 50px;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    display: flex; align-items: center; gap: 6px;
+  }
+  .sub-score-chip strong { color: var(--text); }
+
+  /* Before / After */
+  .ba-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); border-radius: 10px; overflow: hidden; }
+  .ba-panel { padding: 18px 20px; }
+  .ba-before { background: rgba(255,90,95,0.08); }
+  .ba-after { background: rgba(0,198,160,0.08); }
+  .ba-label { font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 10px; }
+  .ba-before .ba-label { color: var(--red); }
+  .ba-after .ba-label { color: var(--green); }
+  .ba-title { font-weight: 500; font-size: 0.88rem; line-height: 1.5; }
+
+  /* Titles */
+  .title-options { display: flex; flex-direction: column; gap: 10px; }
+  .title-opt {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 16px;
+    display: flex; align-items: flex-start; gap: 12px;
+  }
+  .title-num {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--red);
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .title-text { font-weight: 500; font-size: 0.9rem; line-height: 1.5; }
+  .title-charcount { font-family: var(--font-mono); font-size: 0.68rem; color: var(--muted); margin-top: 4px; }
+
+  /* Description */
+  .desc-box {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+    font-size: 0.9rem;
+    line-height: 1.8;
+    color: var(--text);
+    white-space: pre-wrap;
+    min-height: 80px;
+  }
+
+  /* Keywords */
+  .keywords-wrap { display: flex; flex-wrap: wrap; gap: 8px; }
+  .kw-tag {
+    display: flex; align-items: center; gap: 6px;
+    padding: 6px 12px;
+    border-radius: 50px;
+    font-size: 0.78rem;
+    font-family: var(--font-mono);
+    border: 1px solid transparent;
+  }
+  .kw-tag.good { background: rgba(0,198,160,0.1); border-color: rgba(0,198,160,0.25); color: var(--green); }
+  .kw-tag.missing { background: rgba(255,90,95,0.1); border-color: rgba(255,90,95,0.25); color: var(--red); }
+  .kw-tag.suggested { background: rgba(247,183,49,0.1); border-color: rgba(247,183,49,0.25); color: var(--gold); }
+  .kw-icon { font-size: 0.75rem; }
+
+  /* Pricing */
+  .pricing-cols { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+  .price-card {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 16px;
+    text-align: center;
+    position: relative;
+  }
+  .price-card.highlight {
+    border-color: var(--green);
+    background: rgba(0,198,160,0.05);
+  }
+  .price-card.highlight::before {
+    content: 'SWEET SPOT';
+    position: absolute; top: -10px; left: 50%; transform: translateX(-50%);
+    background: var(--green);
+    color: #000;
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.08em;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 50px;
+  }
+  .price-label { font-family: var(--font-mono); font-size: 0.68rem; color: var(--muted); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 10px; }
+  .price-value { font-family: var(--font-head); font-size: 1.8rem; font-weight: 700; line-height: 1; }
+  .price-card:nth-child(1) .price-value { color: var(--muted); }
+  .price-card.highlight .price-value { color: var(--green); }
+  .price-card:nth-child(3) .price-value { color: var(--gold); }
+  .price-sub { font-family: var(--font-mono); font-size: 0.65rem; color: var(--muted); margin-top: 6px; }
+  .pricing-advice {
+    margin-top: 16px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+    font-size: 0.88rem;
+    line-height: 1.75;
+    color: var(--text);
+    min-height: 40px;
+  }
+
+  /* Tips */
+  .tips-list { display: flex; flex-direction: column; gap: 10px; }
+  .tip-item {
+    display: flex; gap: 14px; align-items: flex-start;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+    background: var(--surface2);
+  }
+  .tip-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
+  .tip-title { font-weight: 600; font-size: 0.88rem; margin-bottom: 3px; }
+  .tip-detail { font-size: 0.82rem; color: var(--muted); line-height: 1.6; }
+  .tip-item.critical { border-left: 3px solid var(--red); }
+  .tip-item.warning { border-left: 3px solid var(--gold); }
+  .tip-item.ok { border-left: 3px solid var(--green); }
+
+  /* Section header */
+  .sec-hd {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 14px;
+  }
+  .sec-hd h3 {
+    font-family: var(--font-head);
+    font-size: 1.05rem;
+    font-weight: 700;
+  }
+  .sec-badge {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 50px;
+    padding: 3px 10px;
+  }
+
+  /* Footer */
+  footer {
+    text-align: center;
+    padding: 36px 0 28px;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--muted);
+    margin-top: 40px;
+    border-top: 1px solid var(--border);
+  }
+  footer a { color: var(--red); }
+
+  /* Price position badge */
+  .price-pos-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: var(--font-mono); font-size: 0.7rem;
+    padding: 4px 12px; border-radius: 50px; border: 1px solid var(--border);
+  }
+
+  /* Responsive */
+  @media (max-width: 640px) {
+    .logo { font-size: 2rem; }
+    .form-grid { grid-template-columns: 1fr; }
+    .score-section { grid-template-columns: 1fr; text-align: center; }
+    .sub-scores { justify-content: center; }
+    .ba-grid { grid-template-columns: 1fr; }
+    .pricing-cols { grid-template-columns: 1fr; }
+    .tab-nav { width: 100%; justify-content: stretch; }
+    .tab-btn { flex: 1; text-align: center; }
+  }
+  @media (max-width: 400px) {
+    .score-ring-wrap { width: 100px; height: 100px; }
+    .score-ring-wrap svg { width: 100px; height: 100px; }
+    .score-ring-bg, .score-ring-fg { transform-origin: 50px 50px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- ââ Header ââ -->
+  <header>
+    <div class="logo">Air<span>Rank</span></div>
+    <div class="tagline">â¦ Airbnb SEO Optimization Agent Â· Powered by Claude AI â¦</div>
+  </header>
+
+  <!-- ââ API Key ââ -->
+  <div class="api-row">
+    <label>ANTHROPIC API KEY</label>
+    <input type="password" id="apiKey" placeholder="sk-ant-..." autocomplete="off" spellcheck="false" />
+    <span class="api-lock">ð Never stored</span>
+  </div>
+
+  <!-- ââ Tabs ââ -->
+  <div class="tabs-wrap">
+    <div class="tab-nav">
+      <button class="tab-btn active" data-tab="tab1">â  Listing Details</button>
+      <button class="tab-btn" data-tab="tab2">â¡ Pricing Intel</button>
+      <button class="tab-btn" data-tab="tab3">â¢ Advanced</button>
+    </div>
+
+    <!-- Tab 1 -->
+    <div class="card">
+      <div class="card-body">
+        <div id="tab1" class="tab-pane active">
+          <div class="form-grid">
+            <div class="form-group full">
+              <label>Current Listing Title *</label>
+              <input type="text" id="currentTitle" placeholder="e.g. Cozy Studio Near BGC with Fast WiFi" />
+            </div>
+            <div class="form-group full">
+              <label>Current Description (optional)</label>
+              <textarea id="currentDesc" placeholder="Paste your existing description here..."></textarea>
+            </div>
+            <div class="form-group">
+              <label>Property Type</label>
+              <select id="propType">
+                <option value="Entire Apartment">Entire Apartment</option>
+                <option value="Private Room">Private Room</option>
+                <option value="House">House</option>
+                <option value="Studio">Studio</option>
+                <option value="Villa">Villa</option>
+                <option value="Condo">Condo</option>
+                <option value="Cabin">Cabin</option>
+                <option value="Loft">Loft</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Bedrooms</label>
+              <input type="number" id="bedrooms" placeholder="2" min="0" max="20" />
+            </div>
+            <div class="form-group">
+              <label>Max Guests</label>
+              <input type="number" id="maxGuests" placeholder="4" min="1" max="50" />
+            </div>
+            <div class="form-group">
+              <label>City / Neighborhood *</label>
+              <input type="text" id="location" placeholder="e.g. BGC, Taguig, Manila" />
+            </div>
+            <div class="form-group full">
+              <label>Nearby Attractions</label>
+              <input type="text" id="attractions" placeholder="e.g. SM Aura, Uptown Bonifacio, Makati CBD" />
+            </div>
+            <div class="form-group full">
+              <label>Key Amenities (comma-separated)</label>
+              <input type="text" id="amenities" placeholder="e.g. Fast WiFi, Pool, Netflix, Kitchen, Parking" />
+            </div>
+            <div class="form-group full">
+              <label>Unique Selling Points</label>
+              <textarea id="usp" placeholder="What makes your listing special? e.g. Stunning city view, pet-friendly, free airport pickup..."></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 2 -->
+        <div id="tab2" class="tab-pane">
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Current Nightly Rate</label>
+              <input type="text" id="nightlyRate" placeholder="e.g. 2500" />
+            </div>
+            <div class="form-group">
+              <label>Currency</label>
+              <select id="currency">
+                <option value="PHP â±">PHP â±</option>
+                <option value="USD $">USD $</option>
+                <option value="EUR â¬">EUR â¬</option>
+                <option value="SGD S$">SGD S$</option>
+                <option value="AUD A$">AUD A$</option>
+                <option value="GBP Â£">GBP Â£</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Target Guest Type</label>
+              <select id="guestType">
+                <option value="Leisure">Leisure</option>
+                <option value="Business">Business</option>
+                <option value="Digital Nomads">Digital Nomads</option>
+                <option value="Families">Families</option>
+                <option value="Couples">Couples</option>
+                <option value="Backpackers">Backpackers</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Typical Booking Length</label>
+              <select id="bookingLen">
+                <option value="1â2 nights">1â2 nights</option>
+                <option value="3â7 nights">3â7 nights</option>
+                <option value="1â3 months">1â3 months</option>
+              </select>
+            </div>
+            <div class="form-group full">
+              <label>Market Notes (optional)</label>
+              <input type="text" id="marketNotes" placeholder="e.g. High competition in BGC, low season Nov-Feb" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 3 -->
+        <div id="tab3" class="tab-pane">
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Tone of Voice</label>
+              <select id="tone">
+                <option value="Warm & Welcoming">Warm &amp; Welcoming</option>
+                <option value="Luxury">Luxury</option>
+                <option value="Casual">Casual</option>
+                <option value="Professional">Professional</option>
+                <option value="Adventurous">Adventurous</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Primary Language</label>
+              <select id="language">
+                <option value="English">English</option>
+                <option value="Filipino/Tagalog">Filipino/Tagalog</option>
+                <option value="Spanish">Spanish</option>
+                <option value="French">French</option>
+              </select>
+            </div>
+            <div class="form-group full">
+              <label>Extra AI Instructions</label>
+              <textarea id="extraInstructions" placeholder="Any other guidance for the AI? e.g. Avoid mentioning price directly, emphasize the rooftop view..."></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button class="btn-analyze" id="analyzeBtn" onclick="runAnalysis()">
+      â¦ Analyze &amp; Optimize My Listing
+    </button>
+  </div>
+
+  <!-- ââ Loading ââ -->
+  <div class="loading-wrap" id="loadingWrap">
+    <div class="spinner"></div>
+    <div class="loading-msg" id="loadingMsg">Warming up the AI engine...</div>
+  </div>
+
+  <!-- ââ Results ââ -->
+  <div id="results">
+    <div class="results-grid">
+
+      <!-- 1. SEO Score -->
+      <div class="card">
+        <div class="card-body">
+          <div class="sec-hd">
+            <h3>SEO Score</h3>
+            <span class="sec-badge" id="pricePosBadge"></span>
+          </div>
+          <div class="score-section">
+            <div class="score-ring-wrap">
+              <svg viewBox="0 0 130 130">
+                <circle class="score-ring-bg" cx="65" cy="65" r="55" />
+                <circle class="score-ring-fg" id="scoreRing" cx="65" cy="65" r="55"
+                  stroke-dasharray="345.6"
+                  stroke-dashoffset="345.6"
+                  stroke="var(--red)" />
+              </svg>
+              <div class="score-center">
+                <div class="score-num" id="scoreNum">â</div>
+                <div class="score-lbl">/ 100</div>
+              </div>
+            </div>
+            <div class="score-meta">
+              <div class="score-label-big" id="scoreLabel">â</div>
+              <div class="score-summary" id="scoreSummary"></div>
+              <div class="sub-scores">
+                <div class="sub-score-chip">Title <strong id="titleScore">â</strong></div>
+                <div class="sub-score-chip">Keywords <strong id="kwScore">â</strong></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. Before / After -->
+      <div class="card">
+        <div class="card-body">
+          <div class="sec-hd"><h3>Title Comparison</h3></div>
+          <div class="ba-grid">
+            <div class="ba-panel ba-before">
+              <div class="ba-label">â Before</div>
+              <div class="ba-title" id="baBefore"></div>
+            </div>
+            <div class="ba-panel ba-after">
+              <div class="ba-label">â After (Best Pick)</div>
+              <div class="ba-title" id="baAfter"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. Optimized Titles -->
+      <div class="card">
+        <div class="card-body">
+          <div class="sec-hd"><h3>Optimized Title Options</h3><span class="sec-badge">KEYWORD-RICH Â· MAX 50 CHARS</span></div>
+          <div class="title-options" id="titleOptions"></div>
+        </div>
+      </div>
+
+      <!-- 4. Description -->
+      <div class="card">
+        <div class="card-body">
+          <div class="sec-hd"><h3>Rewritten Description</h3><span class="sec-badge">~200 WORDS</span></div>
+          <div class="desc-box" id="descBox"></div>
+        </div>
+      </div>
+
+      <!-- 5. Keywords -->
+      <div class="card">
+        <div class="card-body">
+          <div class="sec-hd"><h3>Keyword Analysis</h3></div>
+          <div class="keywords-wrap" id="keywordsWrap"></div>
+        </div>
+      </div>
+
+      <!-- 6. Pricing -->
+      <div class="card">
+        <div class="card-body">
+          <div class="sec-hd"><h3>Pricing Strategy</h3></div>
+          <div class="pricing-cols" id="pricingCols"></div>
+          <div class="pricing-advice" id="pricingAdvice"></div>
+        </div>
+      </div>
+
+      <!-- 7. Priority Actions -->
+      <div class="card">
+        <div class="card-body">
+          <div class="sec-hd"><h3>Priority Action Items</h3></div>
+          <div class="tips-list" id="tipsList"></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <footer>
+    AirRank &mdash; <a href="https://github.com/clarmela/airrank-seo-agent" target="_blank">View on GitHub</a> &bull; Built with Claude AI &bull; <span id="fyear"></span>
+  </footer>
+
+</div><!-- /container -->
+
+<script>
+/* âââ Tab switching âââââââââââââââââââââââââââââââââââââââââ */
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById(btn.dataset.tab).classList.add('active');
+  });
+});
+
+/* âââ Footer year âââââââââââââââââââââââââââââââââââââââââââ */
+document.getElementById('fyear').textContent = new Date().getFullYear();
+
+/* âââ Loading messages ââââââââââââââââââââââââââââââââââââââ */
+const LOADING_MSGS = [
+  "Analyzing your listing details...",
+  "Crunching Airbnb SEO signals...",
+  "Crafting keyword-rich titles...",
+  "Writing your optimized description...",
+  "Evaluating your pricing strategy...",
+  "Generating priority action items...",
+  "Polishing the final report...",
+  "Almost there â finalizing results...",
+];
+let loadingInterval = null;
+function startLoading() {
+  let i = 0;
+  document.getElementById('loadingMsg').textContent = LOADING_MSGS[0];
+  loadingInterval = setInterval(() => {
+    i = (i + 1) % LOADING_MSGS.length;
+    document.getElementById('loadingMsg').textContent = LOADING_MSGS[i];
+  }, 2200);
+}
+function stopLoading() {
+  clearInterval(loadingInterval);
+}
+
+/* âââ Streaming text effect âââââââââââââââââââââââââââââââââ */
+function streamText(el, text, delay = 12) {
+  el.textContent = '';
+  let i = 0;
+  return new Promise(resolve => {
+    const t = setInterval(() => {
+      if (i >= text.length) { clearInterval(t); resolve(); return; }
+      el.textContent += text[i++];
+    }, delay);
+  });
+}
+
+/* âââ Score ring animation ââââââââââââââââââââââââââââââââââ */
+function animateRing(score) {
+  const circ = 345.6;
+  const ring = document.getElementById('scoreRing');
+  const offset = circ - (score / 100) * circ;
+  // Color by score
+  const color = score >= 75 ? '#00c6a0' : score >= 50 ? '#f7b731' : '#ff5a5f';
+  ring.style.stroke = color;
+  document.getElementById('scoreNum').style.color = color;
+  setTimeout(() => { ring.style.strokeDashoffset = offset; }, 50);
+}
+
+/* âââ Render results ââââââââââââââââââââââââââââââââââââââââ */
+function renderResults(data, originalTitle, currency) {
+  // Score ring
+  animateRing(data.seoScore);
+  document.getElementById('scoreNum').textContent = data.seoScore;
+  document.getElementById('scoreLabel').textContent = data.scoreLabel || '';
+  document.getElementById('scoreSummary').textContent = data.scoreSummary || '';
+  document.getElementById('titleScore').textContent = data.titleScore ?? 'â';
+  document.getElementById('kwScore').textContent = data.keywordScore ?? 'â';
+
+  // Price position badge
+  const ppBadge = document.getElementById('pricePosBadge');
+  const pp = data.pricePosition || '';
+  ppBadge.textContent = pp;
+  ppBadge.style.color = pp === 'Below Market' ? '#f7b731' : pp === 'Above Market' ? '#ff5a5f' : '#00c6a0';
+
+  // Before/After
+  document.getElementById('baBefore').textContent = originalTitle || 'â';
+  document.getElementById('baAfter').textContent = (data.optimizedTitles && data.optimizedTitles[0]) || 'â';
+
+  // Title options
+  const toEl = document.getElementById('titleOptions');
+  toEl.innerHTML = '';
+  (data.optimizedTitles || []).forEach((t, i) => {
+    const div = document.createElement('div');
+    div.className = 'title-opt';
+    div.innerHTML = `<span class="title-num">${String(i+1).padStart(2,'0')}</span>
+      <div><div class="title-text">${t}</div><div class="title-charcount">${t.length} / 50 chars</div></div>`;
+    toEl.appendChild(div);
+  });
+
+  // Description â stream
+  const descEl = document.getElementById('descBox');
+  streamText(descEl, data.optimizedDescription || '', 10);
+
+  // Keywords
+  const kwEl = document.getElementById('keywordsWrap');
+  kwEl.innerHTML = '';
+  const iconMap = { good: 'â', missing: 'â', suggested: 'ð¡' };
+  (data.keywords || []).forEach(kw => {
+    const span = document.createElement('span');
+    span.className = `kw-tag ${kw.status}`;
+    span.innerHTML = `<span class="kw-icon">${iconMap[kw.status] || ''}</span>${kw.keyword}`;
+    kwEl.appendChild(span);
+  });
+
+  // Pricing
+  const curr = currency.split(' ')[1] || currency.split(' ')[0] || '';
+  const pEl = document.getElementById('pricingCols');
+  pEl.innerHTML = `
+    <div class="price-card">
+      <div class="price-label">Budget Floor</div>
+      <div class="price-value">${curr}${data.pricing?.floor ?? 'â'}</div>
+      <div class="price-sub">minimum viable rate</div>
+    </div>
+    <div class="price-card highlight">
+      <div class="price-label">Recommended</div>
+      <div class="price-value">${curr}${data.pricing?.recommended ?? 'â'}</div>
+      <div class="price-sub">optimal sweet spot</div>
+    </div>
+    <div class="price-card">
+      <div class="price-label">Peak Rate</div>
+      <div class="price-value">${curr}${data.pricing?.peak ?? 'â'}</div>
+      <div class="price-sub">peak / high-demand</div>
+    </div>
+  `;
+
+  // Pricing advice â stream
+  const paEl = document.getElementById('pricingAdvice');
+  streamText(paEl, data.pricingAdvice || '', 14);
+
+  // Tips
+  const tipsEl = document.getElementById('tipsList');
+  tipsEl.innerHTML = '';
+  const tipIcon = { critical: 'ð´', warning: 'ð¡', ok: 'â' };
+  (data.tips || []).forEach(tip => {
+    const div = document.createElement('div');
+    div.className = `tip-item ${tip.priority}`;
+    div.innerHTML = `<span class="tip-icon">${tipIcon[tip.priority] || 'â¢'}</span>
+      <div><div class="tip-title">${tip.title}</div><div class="tip-detail">${tip.detail}</div></div>`;
+    tipsEl.appendChild(div);
+  });
+
+  // Show results
+  document.getElementById('results').classList.add('show');
+  document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+/* âââ Main analysis function ââââââââââââââââââââââââââââââââ */
+async function runAnalysis() {
+  const apiKey = document.getElementById('apiKey').value.trim();
+  const currentTitle = document.getElementById('currentTitle').value.trim();
+  const location = document.getElementById('location').value.trim();
+  const currency = document.getElementById('currency').value;
+
+  // Validation
+  if (!currentTitle && !location) {
+    alert('Please fill in at least your listing title or city/neighborhood before analyzing.');
+    return;
+  }
+  if (!apiKey) {
+    alert('Please enter your Anthropic API key to use AirRank.');
+    return;
+  }
+
+  // UI state
+  const btn = document.getElementById('analyzeBtn');
+  btn.disabled = true;
+  document.getElementById('loadingWrap').classList.add('show');
+  document.getElementById('results').classList.remove('show');
+  startLoading();
+
+  // Gather form data
+  const payload = {
+    currentTitle,
+    currentDesc: document.getElementById('currentDesc').value.trim(),
+    propType: document.getElementById('propType').value,
+    bedrooms: document.getElementById('bedrooms').value || 'not specified',
+    maxGuests: document.getElementById('maxGuests').value || 'not specified',
+    location,
+    attractions: document.getElementById('attractions').value.trim(),
+    amenities: document.getElementById('amenities').value.trim(),
+    usp: document.getElementById('usp').value.trim(),
+    nightlyRate: document.getElementById('nightlyRate').value.trim(),
+    currency,
+    guestType: document.getElementById('guestType').value,
+    bookingLen: document.getElementById('bookingLen').value,
+    marketNotes: document.getElementById('marketNotes').value.trim(),
+    tone: document.getElementById('tone').value,
+    language: document.getElementById('language').value,
+    extraInstructions: document.getElementById('extraInstructions').value.trim(),
+  };
+
+  const systemPrompt = `You are AirRank, an expert Airbnb SEO and listing optimization specialist. Your job is to analyze an Airbnb listing and return a single, valid JSON object with NO markdown, NO code fences, NO additional text â ONLY the raw JSON.
+
+Return EXACTLY this schema:
+{
+  "seoScore": <integer 0-100>,
+  "scoreLabel": <"Needs Work" | "Good" | "Excellent">,
+  "scoreSummary": <2-sentence summary of why the listing got this score>,
+  "titleScore": <integer 0-100>,
+  "keywordScore": <integer 0-100>,
+  "pricePosition": <"Below Market" | "On Target" | "Above Market">,
+  "optimizedTitles": [<title1_max50chars>, <title2_max50chars>, <title3_max50chars>],
+  "optimizedDescription": <~200 word rewritten description with \\n\\n paragraph breaks>,
+  "keywords": [{ "keyword": <string>, "status": <"good"|"missing"|"suggested"> }],
+  "pricing": { "floor": <number>, "recommended": <number>, "peak": <number> },
+  "pricingAdvice": <3-4 sentences of pricing strategy>,
+  "tips": [{ "priority": <"critical"|"warning"|"ok">, "title": <short title>, "detail": <explanation> }]
+}
+
+Rules:
+- All 3 titles MUST be under 50 characters
+- Return 8-12 keywords in the keywords array
+- Return 5-8 tips in the tips array
+- Pricing numbers must be plain numbers (no currency symbols)
+- The optimizedDescription must use \\n\\n between paragraphs
+- Do NOT wrap response in markdown or code blocks
+- Respond ONLY with the JSON object`;
+
+  const userPrompt = `Analyze this Airbnb listing and return the JSON optimization report:
+
+LISTING DETAILS:
+- Current Title: ${payload.currentTitle || 'None provided'}
+- Current Description: ${payload.currentDesc || 'None provided'}
+- Property Type: ${payload.propType}
+- Bedrooms: ${payload.bedrooms}
+- Max Guests: ${payload.maxGuests}
+- Location: ${payload.location || 'None specified'}
+- Nearby Attractions: ${payload.attractions || 'None specified'}
+- Key Amenities: ${payload.amenities || 'None specified'}
+- Unique Selling Points: ${payload.usp || 'None specified'}
+
+PRICING INTEL:
+- Current Nightly Rate: ${payload.nightlyRate || 'Not specified'} ${payload.currency}
+- Target Guest Type: ${payload.guestType}
+- Typical Booking Length: ${payload.bookingLen}
+- Market Notes: ${payload.marketNotes || 'None'}
+
+PREFERENCES:
+- Tone of Voice: ${payload.tone}
+- Language: ${payload.language}
+- Extra Instructions: ${payload.extraInstructions || 'None'}
+
+Return ONLY valid JSON â no markdown, no code fences.`;
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': apiKey,
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-access': 'true',
+      },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 2000,
+        system: systemPrompt,
+        messages: [{ role: 'user', content: userPrompt }],
+      }),
+    });
+
+    if (!res.ok) {
+      const errText = await res.text();
+      throw new Error(`API error ${res.status}: ${errText}`);
+    }
+
+    const apiData = await res.json();
+    const rawContent = apiData.content?.[0]?.text || '';
+
+    let parsed;
+    try {
+      // Strip any accidental markdown fences
+      const cleaned = rawContent.replace(/^```[\w]*\n?/gm, '').replace(/^```$/gm, '').trim();
+      parsed = JSON.parse(cleaned);
+    } catch (parseErr) {
+      // Try to extract JSON from the string
+      const match = rawContent.match(/\{[\s\S]*\}/);
+      if (match) {
+        parsed = JSON.parse(match[0]);
+      } else {
+        throw new Error('Could not parse JSON from API response. Please try again.');
+      }
+    }
+
+    stopLoading();
+    document.getElementById('loadingWrap').classList.remove('show');
+    renderResults(parsed, payload.currentTitle, currency);
+
+  } catch (err) {
+    stopLoading();
+    document.getElementById('loadingWrap').classList.remove('show');
+    console.error(err);
+
+    // Show error in score summary area
+    document.getElementById('results').classList.add('show');
+    document.getElementById('scoreNum').textContent = '!';
+    document.getElementById('scoreLabel').textContent = 'Error';
+    document.getElementById('scoreSummary').textContent = err.message || 'An unexpected error occurred. Check your API key and try again.';
+    document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+  } finally {
+    btn.disabled = false;
+  }
+}
+
+/* âââ Enter key submits âââââââââââââââââââââââââââââââââââââ */
+document.addEventListener('keydown', e => {
+  if (e.key === 'Enter' && e.ctrlKey) runAnalysis();
+});
+</script>
+</body>
+</html>
