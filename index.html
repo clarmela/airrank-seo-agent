@@ -11,15 +11,15 @@
   /* âââ Reset & Base âââââââââââââââââââââââââââââââââââââââ */
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
-    --bg: #0a0a0f;
-    --surface: #13131a;
-    --surface2: #1a1a24;
-    --border: rgba(255,255,255,0.07);
+    --bg: #fdf8f5;
+    --surface: #ffffff;
+    --surface2: #f2eeeb;
+    --border: rgba(0,0,0,0.1);
     --red: #ff5a5f;
-    --green: #00c6a0;
-    --gold: #f7b731;
-    --text: #e8e8f0;
-    --muted: #6b6b80;
+    --green: #00a98a;
+    --gold: #d4920a;
+    --text: #1a1822;
+    --muted: #7a7890;
     --font-head: 'Playfair Display', serif;
     --font-mono: 'DM Mono', monospace;
     --font-body: 'DM Sans', sans-serif;
@@ -33,8 +33,8 @@
     line-height: 1.6;
     min-height: 100vh;
     background-image:
-      linear-gradient(rgba(255,90,95,0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,90,95,0.03) 1px, transparent 1px);
+      linear-gradient(rgba(255,90,95,0.07) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,90,95,0.07) 1px, transparent 1px);
     background-size: 40px 40px;
   }
   a { color: var(--red); text-decoration: none; }
@@ -63,7 +63,7 @@
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
-  .logo span { color: var(--text); -webkit-text-fill-color: var(--text); }
+  .logo span { color: #1a1822; -webkit-text-fill-color: #1a1822; }
   .tagline { font-family: var(--font-mono); font-size: 0.78rem; color: var(--muted); margin-top: 6px; letter-spacing: 0.08em; text-transform: uppercase; }
 
   /* âââ API Key Row âââââââââââââââââââââââââââââââââââââââââ */
@@ -162,7 +162,7 @@
   .form-group input:focus,
   .form-group select:focus,
   .form-group textarea:focus { border-color: var(--red); }
-  .form-group select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236b6b80' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; padding-right: 32px; cursor: pointer; }
+  .form-group select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%231a1822' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; padding-right: 32px; cursor: pointer; }
   .form-group textarea { resize: vertical; min-height: 90px; }
   .form-group input::placeholder,
   .form-group textarea::placeholder { color: var(--muted); }
@@ -274,8 +274,8 @@
   /* Before / After */
   .ba-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); border-radius: 10px; overflow: hidden; }
   .ba-panel { padding: 18px 20px; }
-  .ba-before { background: rgba(255,90,95,0.08); }
-  .ba-after { background: rgba(0,198,160,0.08); }
+  .ba-before { background: rgba(255,90,95,0.06); }
+  .ba-after { background: rgba(0,169,138,0.07); }
   .ba-label { font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 10px; }
   .ba-before .ba-label { color: var(--red); }
   .ba-after .ba-label { color: var(--green); }
@@ -323,9 +323,9 @@
     font-family: var(--font-mono);
     border: 1px solid transparent;
   }
-  .kw-tag.good { background: rgba(0,198,160,0.1); border-color: rgba(0,198,160,0.25); color: var(--green); }
-  .kw-tag.missing { background: rgba(255,90,95,0.1); border-color: rgba(255,90,95,0.25); color: var(--red); }
-  .kw-tag.suggested { background: rgba(247,183,49,0.1); border-color: rgba(247,183,49,0.25); color: var(--gold); }
+  .kw-tag.good { background: rgba(0,169,138,0.12); border-color: rgba(0,169,138,0.3); color: var(--green); }
+  .kw-tag.missing { background: rgba(255,90,95,0.1); border-color: rgba(255,90,95,0.3); color: var(--red); }
+  .kw-tag.suggested { background: rgba(212,146,10,0.1); border-color: rgba(212,146,10,0.3); color: var(--gold); }
   .kw-icon { font-size: 0.75rem; }
 
   /* Pricing */
@@ -339,7 +339,7 @@
   }
   .price-card.highlight {
     border-color: var(--green);
-    background: rgba(0,198,160,0.05);
+    background: rgba(0,169,138,0.07);
   }
   .price-card.highlight::before {
     content: 'SWEET SPOT';
@@ -493,565 +493,172 @@
                 <option value="Studio">Studio</option>
                 <option value="Villa">Villa</option>
                 <option value="Condo">Condo</option>
-                <option value="Cabin">Cabin</option>
-                <option value="Loft">Loft</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label>Bedrooms</label>
-              <input type="number" id="bedrooms" placeholder="2" min="0" max="20" />
-            </div>
-            <div class="form-group">
-              <label>Max Guests</label>
-              <input type="number" id="maxGuests" placeholder="4" min="1" max="50" />
-            </div>
-            <div class="form-group">
-              <label>City / Neighborhood *</label>
-              <input type="text" id="location" placeholder="e.g. BGC, Taguig, Manila" />
-            </div>
-            <div class="form-group full">
-              <label>Nearby Attractions</label>
-              <input type="text" id="attractions" placeholder="e.g. SM Aura, Uptown Bonifacio, Makati CBD" />
-            </div>
-            <div class="form-group full">
-              <label>Key Amenities (comma-separated)</label>
-              <input type="text" id="amenities" placeholder="e.g. Fast WiFi, Pool, Netflix, Kitchen, Parking" />
-            </div>
-            <div class="form-group full">
-              <label>Unique Selling Points</label>
-              <textarea id="usp" placeholder="What makes your listing special? e.g. Stunning city view, pet-friendly, free airport pickup..."></textarea>
-            </div>
-          </div>
-        </div>
+    Ü[Û[YOHØX[ØX[ÛÜ[ÛÜ[Û[YOHÙÙÛÜ[ÛÜÙ[XÝÙ]]Û\ÜÏHÜKYÜÝ\X[YÛÛ\ÏÛX[[]\OH[X\YHYÛÛ\ÈXÙZÛ\HZ[HX^HÏÙ]]Û\ÜÏHÜKYÜÝ\X[X^ÝY\ÝÏÛX[[]\OH[X\YHX^ÝY\ÝÈXÙZÛ\HZ[HHX^HLÏÙ]]Û\ÜÏHÜKYÜÝ\X[Ú]HÈZYÚÜÛÙ
+ÛX[[]\OH^YHØØ][ÛXÙZÛ\HKËÐËYÝZYËX[[HÏÙ]]Û\ÜÏHÜKYÜÝ\[X[X\H]XÝ[ÛÏÛX[[]\OH^YH]XÝ[ÛÈXÙZÛ\HKËÓH]\K\ÝÛÛYXÚ[ËXZØ]HÐÏÙ]]Û\ÜÏHÜKYÜÝ\[X[Ù^H[Y[]Y\È
+ÛÛ[XK\Ù\\]Y
+OÛX[[]\OH^YH[Y[]Y\ÈXÙZÛ\HKË\ÝÚQKÛÛ]^Ú]Ú[\Ú[ÈÏÙ]]Û\ÜÏHÜKYÜÝ\[X[[\]YHÙ[[ÈÚ[ÏÛX[^\XHYH\ÜXÙZÛ\HÚ]XZÙ\È[Ý\\Ý[ÈÜXÚX[ÈKËÝ[[ÈÚ]HY]Ë]YY[KYHZ\ÜXÚÝ\Ý^\XOÙ]Ù]Ù]KKHXKO]YHXÛ\ÜÏHX\[H]Û\ÜÏHÜKYÜY]Û\ÜÏHÜKYÜÝ\X[Ý\[YÚH]OÛX[[]\OH^YHYÚT]HXÙZÛ\HKËLÏÙ]]Û\ÜÏHÜKYÜÝ\X[Ý\[ÞOÛX[Ù[XÝYHÝ\[ÞHÜ[Û[YOH8 ¬H8 ¬OÛÜ[ÛÜ[Û[YOHTÑ	TÑ	ÛÜ[ÛÜ[Û[YOHUT8 «UT8 «ÛÜ[ÛÜ[Û[YOHÑÑÉÑÑÉÛÜ[ÛÜ[Û[YOHUQIUQIÛÜ[ÛÜ[Û[YOHÐ0¨ÈÐ0¨ÏÛÜ[ÛÜÙ[XÝÙ]]Û\ÜÏHÜKYÜÝ\X[\Ù]ÝY\Ý\OÛX[Ù[XÝYHÝY\Ý\HÜ[Û[YOHZ\Ý\HZ\Ý\OÛÜ[ÛÜ[Û[YOH\Ú[\ÜÈ\Ú[\ÜÏÛÜ[ÛÜ[Û[YOHYÚ][ÛXYÈYÚ][ÛXYÏÛÜ[ÛÜ[Û[YOH[Z[Y\È[Z[Y\ÏÛÜ[ÛÜ[Û[YOHÛÝ\\ÈÛÝ\\ÏÛÜ[ÛÜ[Û[YOHXÚÜXÚÙ\ÈXÚÜXÚÙ\ÏÛÜ[ÛÜÙ[XÝÙ]]Û\ÜÏHÜKYÜÝ\X[\XØ[ÛÚÚ[È[ÝÛX[Ù[XÝYHÛÚÚ[Ó[Ü[Û[YOHx $ÌYÚÈx $ÌYÚÏÛÜ[ÛÜ[Û[YOHø $ÍÈYÚÈø $ÍÈYÚÏÛÜ[ÛÜ[Û[YOHx $ÌÈ[ÛÈx $ÌÈ[ÛÏÛÜ[ÛÜÙ[XÝÙ]]Û\ÜÏHÜKYÜÝ\[X[X\Ù]Ý\È
+Ü[Û[
+OÛX[[]\OH^YHX\Ù]Ý\ÈXÙZÛ\HKËYÚÛÛ\]][Û[ÐËÝÈÙX\ÛÛÝQXÏÙ]Ù]Ù]KKHXÈKO]YHXÈÛ\ÜÏHX\[H]Û\ÜÏHÜKYÜY]Û\ÜÏHÜKYÜÝ\X[ÛHÙÚXÙOÛX[Ù[XÝYHÛHÜ[Û[YOHØ\H	Ù[ÛÛZ[ÈØ\H	[\ÈÙ[ÛÛZ[ÏÛÜ[ÛÜ[Û[YOH^\H^\OÛÜ[ÛÜ[Û[YOHØ\ÝX[Ø\ÝX[ÛÜ[ÛÜ[Û[YOHÙ\ÜÚ[Û[Ù\ÜÚ[Û[ÛÜ[ÛÜ[Û[YOHY[\Ý\ÈY[\Ý\ÏÛÜ[ÛÜÙ[XÝÙ]]Û\ÜÏHÜKYÜÝ\X[[X\H[ÝXYÙOÛX[Ù[XÝYH[ÝXYÙHÜ[Û[YOH[Û\Ú[Û\ÚÛÜ[ÛÜ[Û[YOH[\[ËÕYØ[ÙÈ[\[ËÕYØ[ÙÏÛÜ[ÛÜ[Û[YOHÜ[\ÚÜ[\ÚÛÜ[ÛÜ[Û[YOH[Ú[ÚÛÜ[ÛÜÙ[XÝÙ]]Û\ÜÏHÜKYÜÝ\[X[^HRH[ÝXÝ[ÛÏÛX[^\XHYH^R[ÝXÝ[ÛÈXÙZÛ\H[HÝ\ÝZY[ÙHÜHROÈKË]ÚYY[[Û[ÈXÙH\XÝK[\\Ú^HHÛÙÜY]ËÝ^\XOÙ]Ù]Ù]Ù]Ù]]ÛÛ\ÜÏHX[[^HYH[[^PÛÛXÚÏH[[[\Ú\Ê
+H8§)[[^H	[\ÈÜ[Z^H^H\Ý[ÂØ]ÛÙ]KKH8¥ 8¥ ØY[È8¥ 8¥ KO]Û\ÜÏHØY[Ë]Ü\YHØY[ÕÜ\]Û\ÜÏHÜ[\Ù]]Û\ÜÏHØY[Ë[\ÙÈYHØY[Ó\ÙÈØ\Z[È\HRH[Ú[KÙ]Ù]KKH8¥ 8¥ \Ý[È8¥ 8¥ KO]YH\Ý[È]Û\ÜÏH\Ý[ËYÜYKKHKÑSÈØÛÜHKO]Û\ÜÏHØ\]Û\ÜÏHØ\XÙH]Û\ÜÏHÙXËZÏÑSÈØÛÜOÚÏÜ[Û\ÜÏHÙXËXYÙHYHXÙTÜÐYÙHÜÜ[Ù]]Û\ÜÏHØÛÜK\ÙXÝ[Û]Û\ÜÏHØÛÜK\[Ë]Ü\ÝÈY]ÐÞHLÌLÌÚ\ÛHÛ\ÜÏHØÛÜK\[ËXÈÞHHÞOHHHMHÏÚ\ÛHÛ\ÜÏHØÛÜK\[ËYÈYHØÛÜT[ÈÞHHÞOHHHMHÝÚÙKY\Ú\^OHÍ
+KÝÚÙKY\ÚÙÙ]HÍ
+KÝÚÙOH\K\Y
+HÏÜÝÏ]Û\ÜÏHØÛÜKXÙ[\]Û\ÜÏHØÛÜK[[HYHØÛÜS[H¸ %Ù]]Û\ÜÏHØÛÜK[ÈLÙ]Ù]Ù]]Û\ÜÏHØÛÜK[Y]H]Û\ÜÏHØÛÜK[X[XYÈYHØÛÜSX[¸ %Ù]]Û\ÜÏHØÛÜK\Ý[[X\HYHØÛÜTÝ[[X\HÙ]]Û\ÜÏHÝX\ØÛÜ\È]Û\ÜÏHÝX\ØÛÜKXÚ\]HÝÛÈYH]TØÛÜH¸ %ÜÝÛÏÙ]]Û\ÜÏHÝX\ØÛÜKXÚ\Ù^]ÛÜÈÝÛÈYHÝÔØÛÜH¸ %ÜÝÛÏÙ]Ù]Ù]Ù]Ù]Ù]KKHYÜHÈY\KO]Û\ÜÏHØ\]Û\ÜÏHØ\XÙH]Û\ÜÏHÙXËZÏ]HÛÛ\\\ÛÛÚÏÙ]]Û\ÜÏHKYÜY]Û\ÜÏHK\[[KXYÜH]Û\ÜÏHK[X[¸§cYÜOÙ]]Û\ÜÏHK]]HYHPYÜHÙ]Ù]]Û\ÜÏHK\[[KXY\]Û\ÜÏHK[X[¸§!HY\
+\ÝXÚÊOÙ]]Û\ÜÏHK]]HYHPY\Ù]Ù]Ù]Ù]Ù]KKHËÜ[Z^Y]\ÈKO]Û\ÜÏHØ\]Û\ÜÏHØ\XÙH]Û\ÜÏHÙXËZÏÜ[Z^Y]HÜ[ÛÏÚÏÜ[Û\ÜÏHÙXËXYÙHÑVUÓÔTPÒ0­ÈPV
+LÒTÏÜÜ[Ù]]Û\ÜÏH]K[Ü[ÛÈYH]SÜ[ÛÈÙ]Ù]Ù]KKH
+\ØÜ\[ÛKO]Û\ÜÏHØ\]Û\ÜÏHØ\XÙH]Û\ÜÏHÙXËZÏ]Ü][\ØÜ\[ÛÚÏÜ[Û\ÜÏHÙXËXYÙHÓÔÏÜÜ[Ù]]Û\ÜÏH\ØËXÞYH\ØÐÞÙ]Ù]Ù]KKH
+KÙ^]ÛÜÈKO]Û\ÜÏHØ\]Û\ÜÏHØ\XÙH]Û\ÜÏHÙXËZÏÙ^]ÛÜ[[\Ú\ÏÚÏÙ]]Û\ÜÏHÙ^]ÛÜË]Ü\YHÙ^]ÛÜÕÜ\Ù]Ù]Ù]KKH
+XÚ[ÈKO]Û\ÜÏHØ\]Û\ÜÏHØ\XÙH]Û\ÜÏHÙXËZÏXÚ[ÈÝ]YÞOÚÏÙ]]Û\ÜÏHXÚ[ËXÛÛÈYHXÚ[ÐÛÛÈÙ]]Û\ÜÏHXÚ[ËXYXÙHYHXÚ[ÐYXÙHÙ]Ù]Ù]KKH
+Ë[Ü]HXÝ[ÛÈKO]Û\ÜÏHØ\]Û\ÜÏHØ\XÙH]Û\ÜÏHÙXËZÏ[Ü]HXÝ[Û][\ÏÚÏÙ]]Û\ÜÏH\Ë[\ÝYH\Ó\ÝÙ]Ù]Ù]Ù]Ù]ÛÝ\Z\[È	Y\ÚÈHYHÎËÙÚ]XÛÛKØÛ\Y[KØZ\[Ë\Ù[ËXYÙ[\Ù]HØ[ÈY]ÈÛÚ]XØO	[ÈZ[Ú]Û]YHRH	[ÈÜ[YHYX\ÜÜ[ÙÛÝ\Ù]KKHØÛÛZ[\KOØÜ\Ê8¥ 8¥ 8¥ XÝÚ]Ú[È8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 
+ÂØÝ[Y[]Y\TÙ[XÝÜ[
+	ËXXÊKÜXXÚ
+OÂY][\Ý[\	ØÛXÚÉË
 
-        <!-- Tab 2 -->
-        <div id="tab2" class="tab-pane">
-          <div class="form-grid">
-            <div class="form-group">
-              <label>Current Nightly Rate</label>
-              <input type="text" id="nightlyRate" placeholder="e.g. 2500" />
-            </div>
-            <div class="form-group">
-              <label>Currency</label>
-              <select id="currency">
-                <option value="PHP â±">PHP â±</option>
-                <option value="USD $">USD $</option>
-                <option value="EUR â¬">EUR â¬</option>
-                <option value="SGD S$">SGD S$</option>
-                <option value="AUD A$">AUD A$</option>
-                <option value="GBP Â£">GBP Â£</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label>Target Guest Type</label>
-              <select id="guestType">
-                <option value="Leisure">Leisure</option>
-                <option value="Business">Business</option>
-                <option value="Digital Nomads">Digital Nomads</option>
-                <option value="Families">Families</option>
-                <option value="Couples">Couples</option>
-                <option value="Backpackers">Backpackers</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label>Typical Booking Length</label>
-              <select id="bookingLen">
-                <option value="1â2 nights">1â2 nights</option>
-                <option value="3â7 nights">3â7 nights</option>
-                <option value="1â3 months">1â3 months</option>
-              </select>
-            </div>
-            <div class="form-group full">
-              <label>Market Notes (optional)</label>
-              <input type="text" id="marketNotes" placeholder="e.g. High competition in BGC, low season Nov-Feb" />
-            </div>
-          </div>
-        </div>
+HOÂØÝ[Y[]Y\TÙ[XÝÜ[
+	ËXXÊKÜXXÚ
+OÛ\ÜÓ\Ý[[ÝJ	ØXÝXÝ[ÛÈXÙZÛ\H[HÝ\ÝZY[ÙHÜHROÈKË]ÚYY[[Û[ÈXÙH\XÝK[\\Ú^HHÛÙÜY]ËÝ^\XOÙ]Ù]Ù]Ù]Ù]]ÛÛ\ÜÏHX[[^HYH[[^PÛÛXÚÏH[[[\Ú\Ê
+H8§)[[^H	[\ÈÜ[Z^H^H\Ý[ÂØ]ÛÙ]KKH8¥ 8¥ ØY[È8¥ 8¥ KO]Û\ÜÏHØY[Ë]Ü\YHØY[ÕÜ\]Û\ÜÏHÜ[\Ù]]Û\ÜÏHØY[Ë[\ÙÈYHØY[Ó\ÙÈØ\Z[È\HRH[Ú[KÙ]Ù]KKH8¥ 8¥ \Ý[È8¥ 8¥ KO]YH\Ý[È]Û\ÜÏH\Ý[ËYÜYKKHKÑSÈØÛÜHKO]Û\ÜÏHØ\]Û\ÜÏHØ\XÙH]Û\ÜÏHÙXËZÏÑSÈØÛÜOÚÏÜ[Û\ÜÏHÙXËXYÙHYHXÙTÜÐYÙHÜÜ[Ù]]Û\ÜÏHØÛÜK\ÙXÝ[Û]Û\ÜÏHØÛÜK\[Ë]Ü\ÝÈY]ÐÞHLÌLÌÚ\ÛHÛ\ÜÏHØÛÜK\[ËXÈÞHHÞOHHHMHÏÚ\ÛHÛ\ÜÏHØÛÜK\[ËYÈYHØÛÜT[ÈÞHHÞOHHHMHÝÚÙKY\Ú\^OHÍ
+KÝÚÙKY\ÚÙÙ]HÍ
+KÝÚÙOH\K\Y
+HÏÜÝÏ]Û\ÜÏHØÛÜKXÙ[\]Û\ÜÏHØÛÜK[[HYHØÛÜS[H¸ %Ù]]Û\ÜÏHØÛÜK[ÈLÙ]Ù]Ù]]Û\ÜÏHØÛÜK[Y]H]Û\ÜÏHØÛÜK[X[XYÈYHØÛÜSX[¸ %Ù]]Û\ÜÏHØÛÜK\Ý[[X\HYHØÛÜTÝ[[X\HÙ]]Û\ÜÏHÝX\ØÛÜ\È]Û\ÜÏHÝX\ØÛÜKXÚ\]HÝÛÈYH]TØÛÜH¸ %ÜÝÛÏÙ]]Û\ÜÏHÝX\ØÛÜKXÚ\Ù^]ÛÜÈÝÛÈYHÝÔØÛÜH¸ %ÜÝÛÏÙ]Ù]Ù]Ù]Ù]Ù]KKHYÜHÈY\KO]Û\ÜÏHØ\]Û\ÜÏHØ\XÙH]Û\ÜÏHÙXËZÏ]HÛÛ\\\ÛÛÚÏÙ]]Û\ÜÏHKYÜY]Û\ÜÏHK\[[KXYÜH]Û\ÜÏHK[X[¸§cYÜOÙ]]Û\ÜÏHK]]HYHPYÜHÙ]Ù]]Û\ÜÏHK\[[KXY\]Û\ÜÏHK[X[¸§!HY\
+\ÝXÚÊOÙ]]Û\ÜÏHK]]HYHPY\Ù]Ù]Ù]Ù]Ù]KKHËÜ[Z^Y]\ÈKO]Û\ÜÏHØ\]Û\ÜÏHØ\XÙH]Û\ÜÏHÙXËZÏÜ[Z^Y]HÜ[ÛÏÚÏÜ[Û\ÜÏHÙXËXYÙHÑVUÓÔTPÒ0­ÈPV
+LÒTÏÜÜ[Ù]]Û\ÜÏH]K[Ü[ÛÈYH]SÜ[ÛÈÙ]Ù]Ù]KKH
+\ØÜ\[ÛKO]Û\ÜÏHØ\]Û\ÜÏHØ\XÙH]Û\ÜÏHÙXËZÏ]Ü][\ØÜ\[ÛÚÏÜ[Û\ÜÏHÙXËXYÙHÓÔÏÜÜ[Ù]]Û\ÜÏH\ØËXÞYH\ØÐÞÙ]Ù]Ù]KKH
+KÙ^]ÛÜÈKO]Û\ÜÏHØ\]Û\ÜÏHØ\XÙH]Û\ÜÏHÙXËZÏÙ^]ÛÜ[[\Ú\ÏÚÏÙ]]Û\ÜÏHÙ^]ÛÜË]Ü\YHÙ^]ÛÜÕÜ\Ù]Ù]Ù]KKH
+XÚ[ÈKO]Û\ÜÏHØ\]Û\ÜÏHØ\XÙH]Û\ÜÏHÙXËZÏXÚ[ÈÝ]YÞOÚÏÙ]]Û\ÜÏHXÚ[ËXÛÛÈYHXÚ[ÐÛÛÈÙ]]Û\ÜÏHXÚ[ËXYXÙHYHXÚ[ÐYXÙHÙ]Ù]Ù]KKH
+Ë[Ü]HXÝ[ÛÈKO]Û\ÜÏHØ\]Û\ÜÏHØ\XÙH]Û\ÜÏHÙXËZÏ[Ü]HXÝ[Û][\ÏÚÏÙ]]Û\ÜÏH\Ë[\ÝYH\Ó\ÝÙ]Ù]Ù]Ù]Ù]ÛÝ\Z\[È	Y\ÚÈHYHÎËÙÚ]XÛÛKØÛ\Y[KØZ\[Ë\Ù[ËXYÙ[\Ù]HØ[ÈY]ÈÛÚ]XØO	[ÈZ[Ú]Û]YHRH	[ÈÜ[YHYX\ÜÜ[ÙÛÝ\Ù]KKHØÛÛZ[\KOØÜ\Ê8¥ 8¥ 8¥ XÝÚ]Ú[È8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 
+ÂØÝ[Y[]Y\TÙ[XÝÜ[
+	ËXXÊKÜXXÚ
+OÂY][\Ý[\	ØÛXÚÉË
 
-        <!-- Tab 3 -->
-        <div id="tab3" class="tab-pane">
-          <div class="form-grid">
-            <div class="form-group">
-              <label>Tone of Voice</label>
-              <select id="tone">
-                <option value="Warm & Welcoming">Warm &amp; Welcoming</option>
-                <option value="Luxury">Luxury</option>
-                <option value="Casual">Casual</option>
-                <option value="Professional">Professional</option>
-                <option value="Adventurous">Adventurous</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label>Primary Language</label>
-              <select id="language">
-                <option value="English">English</option>
-                <option value="Filipino/Tagalog">Filipino/Tagalog</option>
-                <option value="Spanish">Spanish</option>
-                <option value="French">French</option>
-              </select>
-            </div>
-            <div class="form-group full">
-              <label>Extra AI Instructions</label>
-              <textarea id="extraInstructions" placeholder="Any other guidance for the AI? e.g. Avoid mentioning price directly, emphasize the rooftop view..."></textarea>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+HOÂØÝ[Y[]Y\TÙ[XÝÜ[
+	ËXXÊKÜXXÚ
+OÛ\ÜÓ\Ý[[ÝJ	ØXÝ]IÊJNÂØÝ[Y[]Y\TÙ[XÝÜ[
+	ËX\[IÊKÜXXÚ
+OÛ\ÜÓ\Ý[[ÝJ	ØXÝ]IÊJNÂÛ\ÜÓ\ÝY
+	ØXÝ]IÊNÂØÝ[Y[Ù][[Y[RY
+]\Ù]XKÛ\ÜÓ\ÝY
+	ØXÝ]IÊNÂJNÂJNÂÊ8¥ 8¥ 8¥ ÛÝ\YX\8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 
+ÂØÝ[Y[Ù][[Y[RY
+	ÙYX\ÊK^ÛÛ[H]È]J
+KÙ][YX\
+NÂÊ8¥ 8¥ 8¥ ØY[ÈY\ÜØYÙ\È8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 
+ÂÛÛÝÐQS×ÓTÑÔÈHÂ[[^[È[Ý\\Ý[È]Z[ËÜ[Ú[ÈZ\ÑSÈÚYÛ[ËÜY[ÈÙ^]ÛÜ\XÚ]\ËÜ][È[Ý\Ü[Z^Y\ØÜ\[Û][X][È[Ý\XÚ[ÈÝ]YÞKÙ[\][È[Ü]HXÝ[Û][\ËÛ\Ú[ÈH[[\Ü[[ÜÝ\H8 %[[^[È\Ý[ËNÂ]ØY[Ò[\[H[Â[Ý[ÛÝ\ØY[Ê
+HÂ]HHÂØÝ[Y[Ù][[Y[RY
+	ÛØY[Ó\ÙÉÊK^ÛÛ[HÐQS×ÓTÑÔÖÌNÂØY[Ò[\[HÙ][\[
 
-    <button class="btn-analyze" id="analyzeBtn" onclick="runAnalysis()">
-      â¦ Analyze &amp; Optimize My Listing
-    </button>
-  </div>
 
-  <!-- ââ Loading ââ -->
-  <div class="loading-wrap" id="loadingWrap">
-    <div class="spinner"></div>
-    <div class="loading-msg" id="loadingMsg">Warming up the AI engine...</div>
-  </div>
+HOÂHH
+H
+ÈJH	HÐQS×ÓTÑÔË[ÝÂØÝ[Y[Ù][[Y[RY
+	ÛØY[Ó\ÙÉÊK^ÛÛ[HÐQS×ÓTÑÔÖÚWNÂK
+NÂB[Ý[ÛÝÜØY[Ê
+HÂÛX\[\[
+ØY[Ò[\[
+NÂBÊ8¥ 8¥ 8¥ ÝX[Z[È^YXÝ8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 
+Â[Ý[ÛÝX[U^
+[^[^HHLHÂ[^ÛÛ[H	ÉÎÂ]HHÂ]\]ÈÛZ\ÙJ\ÛÛHOÂÛÛÝHÙ][\[
 
-  <!-- ââ Results ââ -->
-  <div id="results">
-    <div class="results-grid">
 
-      <!-- 1. SEO Score -->
-      <div class="card">
-        <div class="card-body">
-          <div class="sec-hd">
-            <h3>SEO Score</h3>
-            <span class="sec-badge" id="pricePosBadge"></span>
-          </div>
-          <div class="score-section">
-            <div class="score-ring-wrap">
-              <svg viewBox="0 0 130 130">
-                <circle class="score-ring-bg" cx="65" cy="65" r="55" />
-                <circle class="score-ring-fg" id="scoreRing" cx="65" cy="65" r="55"
-                  stroke-dasharray="345.6"
-                  stroke-dashoffset="345.6"
-                  stroke="var(--red)" />
-              </svg>
-              <div class="score-center">
-                <div class="score-num" id="scoreNum">â</div>
-                <div class="score-lbl">/ 100</div>
-              </div>
-            </div>
-            <div class="score-meta">
-              <div class="score-label-big" id="scoreLabel">â</div>
-              <div class="score-summary" id="scoreSummary"></div>
-              <div class="sub-scores">
-                <div class="sub-score-chip">Title <strong id="titleScore">â</strong></div>
-                <div class="sub-score-chip">Keywords <strong id="kwScore">â</strong></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+HOÂY
+HH^[Ý
+HÈÛX\[\[
+
+NÈ\ÛÛJ
+NÈ]\ÈB[^ÛÛ[
+ÏH^ÚJÊ×NÂK[^JNÂJNÂBÊ8¥ 8¥ 8¥ ØÛÜH[È[[X][Û8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 
+Â[Ý[Û[[X]T[ÊØÛÜJHÂÛÛÝÚ\ÈHÍ
+KÂÛÛÝ[ÈHØÝ[Y[Ù][[Y[RY
+	ÜØÛÜT[ÉÊNÂÛÛÝÙÙ]HÚ\ÈH
+ØÛÜHÈL
+H
+Ú\ÎÂËÈÛÛÜHØÛÜBÛÛÝÛÛÜHØÛÜHH
+ÍHÈ	ÈÌÍL	ÈØÛÜHH
+LÈ	ÈÙØÌÌIÈ	ÈÙXMYÎÂ[ËÝ[KÝÚÙHHÛÛÜÂØÝ[Y[Ù][[Y[RY
+	ÜØÛÜS[IÊKÝ[KÛÛÜHÛÛÜÂÙ][Y[Ý]
 
-      <!-- 2. Before / After -->
-      <div class="card">
-        <div class="card-body">
-          <div class="sec-hd"><h3>Title Comparison</h3></div>
-          <div class="ba-grid">
-            <div class="ba-panel ba-before">
-              <div class="ba-label">â Before</div>
-              <div class="ba-title" id="baBefore"></div>
-            </div>
-            <div class="ba-panel ba-after">
-              <div class="ba-label">â After (Best Pick)</div>
-              <div class="ba-title" id="baAfter"></div>
-            </div>
-          </div>
-        </div>
-      </div>
 
-      <!-- 3. Optimized Titles -->
-      <div class="card">
-        <div class="card-body">
-          <div class="sec-hd"><h3>Optimized Title Options</h3><span class="sec-badge">KEYWORD-RICH Â· MAX 50 CHARS</span></div>
-          <div class="title-options" id="titleOptions"></div>
-        </div>
-      </div>
+HOÈ[ËÝ[KÝÚÙQ\ÚÙÙ]HÙÙ]ÈK
+L
+NÂBÊ8¥ 8¥ 8¥ [\\Ý[È8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 
+Â[Ý[Û[\\Ý[Ê]KÜYÚ[[]KÝ\[ÞJHÂËÈØÛÜH[Â[[X]T[Ê]KÙ[ÔØÛÜJNÂØÝ[Y[Ù][[Y[RY
+	ÜØÛÜS[IÊK^ÛÛ[H]KÙ[ÔØÛÜNÂØÝ[Y[Ù][[Y[RY
+	ÜØÛÜSX[	ÊK^ÛÛ[H]KØÛÜSX[	ÉÎÂØÝ[Y[Ù][[Y[RY
+	ÜØÛÜTÝ[[X\IÊK^ÛÛ[H]KØÛÜTÝ[[X\H	ÉÎÂØÝ[Y[Ù][[Y[RY
+	Ý]TØÛÜIÊK^ÛÛ[H]K]TØÛÜHÏÈ	ø %	ÎÂØÝ[Y[Ù][[Y[RY
+	ÚÝÔØÛÜIÊK^ÛÛ[H]KÙ^]ÛÜØÛÜHÏÈ	ø %	ÎÂËÈXÙHÜÚ][ÛYÙBÛÛÝYÙHHØÝ[Y[Ù][[Y[RY
+	ÜXÙTÜÐYÙIÊNÂÛÛÝH]KXÙTÜÚ][Û	ÉÎÂYÙK^ÛÛ[HÂYÙKÝ[KÛÛÜHOOH	Ð[ÝÈX\Ù]	ÈÈ	ÈÙØÌÌIÈOOH	ÐXÝHX\Ù]	ÈÈ	ÈÙXMYÈ	ÈÌÍL	ÎÂËÈYÜKÐY\ØÝ[Y[Ù][[Y[RY
+	ØPYÜIÊK^ÛÛ[HÜYÚ[[]H	ø %	ÎÂØÝ[Y[Ù][[Y[RY
+	ØPY\ÊK^ÛÛ[H
+]KÜ[Z^Y]\È	]KÜ[Z^Y]\ÖÌJH	ø %	ÎÂËÈ]HÜ[ÛÂÛÛÝÑ[HØÝ[Y[Ù][[Y[RY
+	Ý]SÜ[ÛÉÊNÂÑ[[\SH	ÉÎÂ
+]KÜ[Z^Y]\È×JKÜXXÚ
 
-      <!-- 4. Description -->
-      <div class="card">
-        <div class="card-body">
-          <div class="sec-hd"><h3>Rewritten Description</h3><span class="sec-badge">~200 WORDS</span></div>
-          <div class="desc-box" id="descBox"></div>
-        </div>
-      </div>
-
-      <!-- 5. Keywords -->
-      <div class="card">
-        <div class="card-body">
-          <div class="sec-hd"><h3>Keyword Analysis</h3></div>
-          <div class="keywords-wrap" id="keywordsWrap"></div>
-        </div>
-      </div>
-
-      <!-- 6. Pricing -->
-      <div class="card">
-        <div class="card-body">
-          <div class="sec-hd"><h3>Pricing Strategy</h3></div>
-          <div class="pricing-cols" id="pricingCols"></div>
-          <div class="pricing-advice" id="pricingAdvice"></div>
-        </div>
-      </div>
-
-      <!-- 7. Priority Actions -->
-      <div class="card">
-        <div class="card-body">
-          <div class="sec-hd"><h3>Priority Action Items</h3></div>
-          <div class="tips-list" id="tipsList"></div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-  <footer>
-    AirRank &mdash; <a href="https://github.com/clarmela/airrank-seo-agent" target="_blank">View on GitHub</a> &bull; Built with Claude AI &bull; <span id="fyear"></span>
-  </footer>
-
-</div><!-- /container -->
-
-<script>
-/* âââ Tab switching âââââââââââââââââââââââââââââââââââââââââ */
-document.querySelectorAll('.tab-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-    document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
-    btn.classList.add('active');
-    document.getElementById(btn.dataset.tab).classList.add('active');
-  });
-});
-
-/* âââ Footer year âââââââââââââââââââââââââââââââââââââââââââ */
-document.getElementById('fyear').textContent = new Date().getFullYear();
-
-/* âââ Loading messages ââââââââââââââââââââââââââââââââââââââ */
-const LOADING_MSGS = [
-  "Analyzing your listing details...",
-  "Crunching Airbnb SEO signals...",
-  "Crafting keyword-rich titles...",
-  "Writing your optimized description...",
-  "Evaluating your pricing strategy...",
-  "Generating priority action items...",
-  "Polishing the final report...",
-  "Almost there â finalizing results...",
-];
-let loadingInterval = null;
-function startLoading() {
-  let i = 0;
-  document.getElementById('loadingMsg').textContent = LOADING_MSGS[0];
-  loadingInterval = setInterval(() => {
-    i = (i + 1) % LOADING_MSGS.length;
-    document.getElementById('loadingMsg').textContent = LOADING_MSGS[i];
-  }, 2200);
-}
-function stopLoading() {
-  clearInterval(loadingInterval);
-}
-
-/* âââ Streaming text effect âââââââââââââââââââââââââââââââââ */
-function streamText(el, text, delay = 12) {
-  el.textContent = '';
-  let i = 0;
-  return new Promise(resolve => {
-    const t = setInterval(() => {
-      if (i >= text.length) { clearInterval(t); resolve(); return; }
-      el.textContent += text[i++];
-    }, delay);
-  });
-}
-
-/* âââ Score ring animation ââââââââââââââââââââââââââââââââââ */
-function animateRing(score) {
-  const circ = 345.6;
-  const ring = document.getElementById('scoreRing');
-  const offset = circ - (score / 100) * circ;
-  // Color by score
-  const color = score >= 75 ? '#00c6a0' : score >= 50 ? '#f7b731' : '#ff5a5f';
-  ring.style.stroke = color;
-  document.getElementById('scoreNum').style.color = color;
-  setTimeout(() => { ring.style.strokeDashoffset = offset; }, 50);
-}
-
-/* âââ Render results ââââââââââââââââââââââââââââââââââââââââ */
-function renderResults(data, originalTitle, currency) {
-  // Score ring
-  animateRing(data.seoScore);
-  document.getElementById('scoreNum').textContent = data.seoScore;
-  document.getElementById('scoreLabel').textContent = data.scoreLabel || '';
-  document.getElementById('scoreSummary').textContent = data.scoreSummary || '';
-  document.getElementById('titleScore').textContent = data.titleScore ?? 'â';
-  document.getElementById('kwScore').textContent = data.keywordScore ?? 'â';
-
-  // Price position badge
-  const ppBadge = document.getElementById('pricePosBadge');
-  const pp = data.pricePosition || '';
-  ppBadge.textContent = pp;
-  ppBadge.style.color = pp === 'Below Market' ? '#f7b731' : pp === 'Above Market' ? '#ff5a5f' : '#00c6a0';
-
-  // Before/After
-  document.getElementById('baBefore').textContent = originalTitle || 'â';
-  document.getElementById('baAfter').textContent = (data.optimizedTitles && data.optimizedTitles[0]) || 'â';
-
-  // Title options
-  const toEl = document.getElementById('titleOptions');
-  toEl.innerHTML = '';
-  (data.optimizedTitles || []).forEach((t, i) => {
-    const div = document.createElement('div');
-    div.className = 'title-opt';
-    div.innerHTML = `<span class="title-num">${String(i+1).padStart(2,'0')}</span>
-      <div><div class="title-text">${t}</div><div class="title-charcount">${t.length} / 50 chars</div></div>`;
-    toEl.appendChild(div);
-  });
-
-  // Description â stream
-  const descEl = document.getElementById('descBox');
-  streamText(descEl, data.optimizedDescription || '', 10);
-
-  // Keywords
-  const kwEl = document.getElementById('keywordsWrap');
-  kwEl.innerHTML = '';
-  const iconMap = { good: 'â', missing: 'â', suggested: 'ð¡' };
-  (data.keywords || []).forEach(kw => {
-    const span = document.createElement('span');
-    span.className = `kw-tag ${kw.status}`;
-    span.innerHTML = `<span class="kw-icon">${iconMap[kw.status] || ''}</span>${kw.keyword}`;
-    kwEl.appendChild(span);
-  });
-
-  // Pricing
-  const curr = currency.split(' ')[1] || currency.split(' ')[0] || '';
-  const pEl = document.getElementById('pricingCols');
-  pEl.innerHTML = `
-    <div class="price-card">
-      <div class="price-label">Budget Floor</div>
-      <div class="price-value">${curr}${data.pricing?.floor ?? 'â'}</div>
-      <div class="price-sub">minimum viable rate</div>
-    </div>
-    <div class="price-card highlight">
-      <div class="price-label">Recommended</div>
-      <div class="price-value">${curr}${data.pricing?.recommended ?? 'â'}</div>
-      <div class="price-sub">optimal sweet spot</div>
-    </div>
-    <div class="price-card">
-      <div class="price-label">Peak Rate</div>
-      <div class="price-value">${curr}${data.pricing?.peak ?? 'â'}</div>
-      <div class="price-sub">peak / high-demand</div>
-    </div>
-  `;
-
-  // Pricing advice â stream
-  const paEl = document.getElementById('pricingAdvice');
-  streamText(paEl, data.pricingAdvice || '', 14);
-
-  // Tips
-  const tipsEl = document.getElementById('tipsList');
-  tipsEl.innerHTML = '';
-  const tipIcon = { critical: 'ð´', warning: 'ð¡', ok: 'â' };
-  (data.tips || []).forEach(tip => {
-    const div = document.createElement('div');
-    div.className = `tip-item ${tip.priority}`;
-    div.innerHTML = `<span class="tip-icon">${tipIcon[tip.priority] || 'â¢'}</span>
-      <div><div class="tip-title">${tip.title}</div><div class="tip-detail">${tip.detail}</div></div>`;
-    tipsEl.appendChild(div);
-  });
-
-  // Show results
-  document.getElementById('results').classList.add('show');
-  document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
-}
-
-/* âââ Main analysis function ââââââââââââââââââââââââââââââââ */
-async function runAnalysis() {
-  const apiKey = document.getElementById('apiKey').value.trim();
-  const currentTitle = document.getElementById('currentTitle').value.trim();
-  const location = document.getElementById('location').value.trim();
-  const currency = document.getElementById('currency').value;
-
-  // Validation
-  if (!currentTitle && !location) {
-    alert('Please fill in at least your listing title or city/neighborhood before analyzing.');
-    return;
-  }
-  if (!apiKey) {
-    alert('Please enter your Anthropic API key to use AirRank.');
-    return;
-  }
-
-  // UI state
-  const btn = document.getElementById('analyzeBtn');
-  btn.disabled = true;
-  document.getElementById('loadingWrap').classList.add('show');
-  document.getElementById('results').classList.remove('show');
-  startLoading();
-
-  // Gather form data
-  const payload = {
-    currentTitle,
-    currentDesc: document.getElementById('currentDesc').value.trim(),
-    propType: document.getElementById('propType').value,
-    bedrooms: document.getElementById('bedrooms').value || 'not specified',
-    maxGuests: document.getElementById('maxGuests').value || 'not specified',
-    location,
-    attractions: document.getElementById('attractions').value.trim(),
-    amenities: document.getElementById('amenities').value.trim(),
-    usp: document.getElementById('usp').value.trim(),
-    nightlyRate: document.getElementById('nightlyRate').value.trim(),
-    currency,
-    guestType: document.getElementById('guestType').value,
-    bookingLen: document.getElementById('bookingLen').value,
-    marketNotes: document.getElementById('marketNotes').value.trim(),
-    tone: document.getElementById('tone').value,
-    language: document.getElementById('language').value,
-    extraInstructions: document.getElementById('extraInstructions').value.trim(),
-  };
-
-  const systemPrompt = `You are AirRank, an expert Airbnb SEO and listing optimization specialist. Your job is to analyze an Airbnb listing and return a single, valid JSON object with NO markdown, NO code fences, NO additional text â ONLY the raw JSON.
-
-Return EXACTLY this schema:
-{
-  "seoScore": <integer 0-100>,
-  "scoreLabel": <"Needs Work" | "Good" | "Excellent">,
-  "scoreSummary": <2-sentence summary of why the listing got this score>,
-  "titleScore": <integer 0-100>,
-  "keywordScore": <integer 0-100>,
-  "pricePosition": <"Below Market" | "On Target" | "Above Market">,
-  "optimizedTitles": [<title1_max50chars>, <title2_max50chars>, <title3_max50chars>],
-  "optimizedDescription": <~200 word rewritten description with \\n\\n paragraph breaks>,
-  "keywords": [{ "keyword": <string>, "status": <"good"|"missing"|"suggested"> }],
-  "pricing": { "floor": <number>, "recommended": <number>, "peak": <number> },
-  "pricingAdvice": <3-4 sentences of pricing strategy>,
-  "tips": [{ "priority": <"critical"|"warning"|"ok">, "title": <short title>, "detail": <explanation> }]
-}
-
-Rules:
-- All 3 titles MUST be under 50 characters
-- Return 8-12 keywords in the keywords array
-- Return 5-8 tips in the tips array
-- Pricing numbers must be plain numbers (no currency symbols)
-- The optimizedDescription must use \\n\\n between paragraphs
-- Do NOT wrap response in markdown or code blocks
-- Respond ONLY with the JSON object`;
-
-  const userPrompt = `Analyze this Airbnb listing and return the JSON optimization report:
-
-LISTING DETAILS:
-- Current Title: ${payload.currentTitle || 'None provided'}
-- Current Description: ${payload.currentDesc || 'None provided'}
-- Property Type: ${payload.propType}
-- Bedrooms: ${payload.bedrooms}
-- Max Guests: ${payload.maxGuests}
-- Location: ${payload.location || 'None specified'}
-- Nearby Attractions: ${payload.attractions || 'None specified'}
-- Key Amenities: ${payload.amenities || 'None specified'}
-- Unique Selling Points: ${payload.usp || 'None specified'}
-
-PRICING INTEL:
-- Current Nightly Rate: ${payload.nightlyRate || 'Not specified'} ${payload.currency}
-- Target Guest Type: ${payload.guestType}
-- Typical Booking Length: ${payload.bookingLen}
-- Market Notes: ${payload.marketNotes || 'None'}
-
-PREFERENCES:
-- Tone of Voice: ${payload.tone}
-- Language: ${payload.language}
-- Extra Instructions: ${payload.extraInstructions || 'None'}
-
-Return ONLY valid JSON â no markdown, no code fences.`;
-
-  try {
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': apiKey,
-        'anthropic-version': '2023-06-01',
-        'anthropic-dangerous-direct-browser-access': 'true',
-      },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 2000,
-        system: systemPrompt,
-        messages: [{ role: 'user', content: userPrompt }],
-      }),
-    });
-
-    if (!res.ok) {
-      const errText = await res.text();
-      throw new Error(`API error ${res.status}: ${errText}`);
-    }
-
-    const apiData = await res.json();
-    const rawContent = apiData.content?.[0]?.text || '';
-
-    let parsed;
-    try {
-      // Strip any accidental markdown fences
-      const cleaned = rawContent.replace(/^```[\w]*\n?/gm, '').replace(/^```$/gm, '').trim();
-      parsed = JSON.parse(cleaned);
-    } catch (parseErr) {
-      // Try to extract JSON from the string
-      const match = rawContent.match(/\{[\s\S]*\}/);
-      if (match) {
-        parsed = JSON.parse(match[0]);
-      } else {
-        throw new Error('Could not parse JSON from API response. Please try again.');
-      }
-    }
-
-    stopLoading();
-    document.getElementById('loadingWrap').classList.remove('show');
-    renderResults(parsed, payload.currentTitle, currency);
-
-  } catch (err) {
-    stopLoading();
-    document.getElementById('loadingWrap').classList.remove('show');
-    console.error(err);
-
-    // Show error in score summary area
-    document.getElementById('results').classList.add('show');
-    document.getElementById('scoreNum').textContent = '!';
-    document.getElementById('scoreLabel').textContent = 'Error';
-    document.getElementById('scoreSummary').textContent = err.message || 'An unexpected error occurred. Check your API key and try again.';
-    document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
-  } finally {
-    btn.disabled = false;
-  }
-}
-
-/* âââ Enter key submits âââââââââââââââââââââââââââââââââââââ */
-document.addEventListener('keydown', e => {
-  if (e.key === 'Enter' && e.ctrlKey) runAnalysis();
-});
-
-/* âââ API Key localStorage persistence âââââââââââââââââââââ */
-(function() {
-  const input = document.getElementById('apiKey');
-  const label = document.getElementById('apiLockLabel');
-  const STORAGE_KEY = 'airrank_api_key';
-
-  // Restore saved key on load
-  const saved = localStorage.getItem(STORAGE_KEY);
-  if (saved) {
-    input.value = saved;
-    label.textContent = 'â Saved locally';
-  }
-
-  // Save on change
-  input.addEventListener('input', () => {
-    const val = input.value.trim();
-    if (val) {
-      localStorage.setItem(STORAGE_KEY, val);
-      label.textContent = 'â Saved locally';
-    } else {
-      localStorage.removeItem(STORAGE_KEY);
-      label.textContent = 'ð Never stored';
-    }
-  });
-})();
-</script>
-</body>
-</html>
+JHOÂÛÛÝ]HØÝ[Y[ÜX]Q[[Y[
+	Ù]ÊNÂ]Û\ÜÓ[YHH	Ý]K[Ü	ÎÂ][\SHÜ[Û\ÜÏH]K[[HÔÝ[ÊJÌJKYÝ\
+	Ì	Ê_OÜÜ[]]Û\ÜÏH]K]^ÝOÙ]]Û\ÜÏH]KXÚ\ÛÝ[Ý[ÝHÈ
+LÚ\ÏÙ]Ù]ÂÑ[\[Ú[
+]NÂJNÂËÈ\ØÜ\[Û8 %ÝX[BÛÛÝ\ØÑ[HØÝ[Y[Ù][[Y[RY
+	Ù\ØÐÞ	ÊNÂÝX[U^
+\ØÑ[]KÜ[Z^Y\ØÜ\[Û	ÉËL
+NÂËÈÙ^]ÛÜÂÛÛÝÝÑ[HØÝ[Y[Ù][[Y[RY
+	ÚÙ^]ÛÜÕÜ\	ÊNÂÝÑ[[\SH	ÉÎÂÛÛÝXÛÛX\HÈÛÛÙ	ø§!IËZ\ÜÚ[Î	ø§c	ËÝYÙÙ\ÝY	ü'ä¨IÈNÂ
+]KÙ^]ÛÜÈ×JKÜXXÚ
+ÝÈOÂÛÛÝÜ[HØÝ[Y[ÜX]Q[[Y[
+	ÜÜ[ÊNÂÜ[Û\ÜÓ[YHHÝË]YÈ	ÚÝËÝ]\ßXÂÜ[[\SHÜ[Û\ÜÏHÝËZXÛÛÚXÛÛX\ÚÝËÝ]\×H	ÉßOÜÜ[ÚÝËÙ^]ÛÜXÂÝÑ[\[Ú[
+Ü[NÂJNÂËÈXÚ[ÂÛÛÝÝ\HÝ\[ÞKÜ]
+	È	ÊVÌWHÝ\[ÞKÜ]
+	È	ÊVÌH	ÉÎÂÛÛÝ[HØÝ[Y[Ù][[Y[RY
+	ÜXÚ[ÐÛÛÉÊNÂ[[\SH]Û\ÜÏHXÙKXØ\]Û\ÜÏHXÙK[X[YÙ]ÛÜÙ]]Û\ÜÏHXÙK][YHØÝ\IÙ]KXÚ[ÏËÛÜÏÈ	ø %	ßOÙ]]Û\ÜÏHXÙK\ÝXZ[[][HXXH]OÙ]Ù]]Û\ÜÏHXÙKXØ\YÚYÚ]Û\ÜÏHXÙK[X[XÛÛ[Y[YÙ]]Û\ÜÏHXÙK][YHØÝ\IÙ]KXÚ[ÏËXÛÛ[Y[YÏÈ	ø %	ßOÙ]]Û\ÜÏHXÙK\ÝXÜ[X[ÝÙY]ÜÝÙ]Ù]]Û\ÜÏHXÙKXØ\]Û\ÜÏHXÙK[X[XZÈ]OÙ]]Û\ÜÏHXÙK][YHØÝ\IÙ]KXÚ[ÏËXZÈÏÈ	ø %	ßOÙ]]Û\ÜÏHXÙK\ÝXXZÈÈYÚY[X[Ù]Ù]ÂËÈXÚ[ÈYXÙH8 %ÝX[BÛÛÝQ[HØÝ[Y[Ù][[Y[RY
+	ÜXÚ[ÐYXÙIÊNÂÝX[U^
+Q[]KXÚ[ÐYXÙH	ÉËM
+NÂËÈ\ÂÛÛÝ\Ñ[HØÝ[Y[Ù][[Y[RY
+	Ý\Ó\Ý	ÊNÂ\Ñ[[\SH	ÉÎÂÛÛÝ\XÛÛHÈÜ]XØ[	ü'å-	ËØ\[Î	ü'çèIËÚÎ	ø§!IÈNÂ
+]K\È×JKÜXXÚ
+\OÂÛÛÝ]HØÝ[Y[ÜX]Q[[Y[
+	Ù]ÊNÂ]Û\ÜÓ[YHH\Z][H	Ý\[Ü]_XÂ][\SHÜ[Û\ÜÏH\ZXÛÛÝ\XÛÛÝ\[Ü]WH	ø (ßOÜÜ[]]Û\ÜÏH\]]HÝ\]_OÙ]]Û\ÜÏH\Y]Z[Ý\]Z[OÙ]Ù]Â\Ñ[\[Ú[
+]NÂJNÂËÈÚÝÈ\Ý[ÂØÝ[Y[Ù][[Y[RY
+	Ü\Ý[ÉÊKÛ\ÜÓ\ÝY
+	ÜÚÝÉÊNÂØÝ[Y[Ù][[Y[RY
+	Ü\Ý[ÉÊKØÜÛ[ÕY]ÊÈZ][Ü	ÜÛ[ÛÝ	ËØÚÎ	ÜÝ\	ÈJNÂBÊ8¥ 8¥ 8¥ XZ[[[\Ú\È[Ý[Û8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 8¥ 
+Â\Þ[È[Ý[Û[[[\Ú\Ê
+HÂÛÛÝ\RÙ^HHØÝ[Y[Ù][[Y[RY
+	Ø\RÙ^IÊK[YK[J
+NÂÛÛÝÝ\[]HHØÝ[Y[Ù][[Y[RY
+	ØÝ\[]IÊK[YK[J
+NÂÛÛÝØØ][ÛHØÝ[Y[Ù][[Y[RY
+	ÛØØ][ÛÊK[YK[J
+NÂÛÛÝÝ\[ÞHHØÝ[Y[Ù][[Y[RY
+	ØÝ\[ÞIÊK[YNÂËÈ[Y][ÛY
+XÝ\[]H	[ØØ][ÛHÂ[\
+	ÔX\ÙH[[]X\Ý[Ý\\Ý[È]HÜÚ]KÛZYÚÜÛÙYÜH[[^[ËÊNÂ]\ÂBY
+X\RÙ^JHÂ[\
+	ÔX\ÙH[\[Ý\[ÜXÈTHÙ^HÈ\ÙHZ\[ËÊNÂ]\ÂBËÈRHÝ]BÛÛÝHØÝ[Y[Ù][[Y[RY
+	Ø[[^PÊNÂ\ØXYHYNÂØÝ[Y[Ù][[Y[RY
+	ÛØY[ÕÜ\	ÊKÛ\ÜÓ\ÝY
+	ÜÚÝÉÊNÂØÝ[Y[Ù][[Y[RY
+	Ü\Ý[ÉÊKÛ\ÜÓ\Ý[[ÝJ	ÜÚÝÉÊNÂÝ\ØY[Ê
+NÂËÈØ]\ÜH]BÛÛÝ^[ØYHÂÝ\[]KÝ\[\ØÎØÝ[Y[Ù][[Y[RY
+	ØÝ\[\ØÉÊK[YK[J
+KÜ\NØÝ[Y[Ù][[Y[RY
+	ÜÜ\IÊK[YKYÛÛ\ÎØÝ[Y[Ù][[Y[RY
+	ØYÛÛ\ÉÊK[YH	ÛÝÜXÚYYY	ËX^ÝY\ÝÎØÝ[Y[Ù][[Y[RY
+	ÛX^ÝY\ÝÉÊK[YH	ÛÝÜXÚYYY	ËØØ][Û]XÝ[ÛÎØÝ[Y[Ù][[Y[RY
+	Ø]XÝ[ÛÉÊK[YK[J
+K[Y[]Y\ÎØÝ[Y[Ù][[Y[RY
+	Ø[Y[]Y\ÉÊK[YK[J
+K\ÜØÝ[Y[Ù][[Y[RY
+	Ý\Ü	ÊK[YK[J
+KYÚT]NØÝ[Y[Ù][[Y[RY
+	ÛYÚT]IÊK[YK[J
+KÝ\[ÞKÝY\Ý\NØÝ[Y[Ù][[Y[RY
+	ÙÝY\Ý\IÊK[YKÛÚÚ[Ó[ØÝ[Y[Ù][[Y[RY
+	ØÛÚÚ[Ó[ÊK[YKX\Ù]Ý\ÎØÝ[Y[Ù][[Y[RY
+	ÛX\Ù]Ý\ÉÊK[YK[J
+KÛNØÝ[Y[Ù][[Y[RY
+	ÝÛIÊK[YK[ÝXYÙNØÝ[Y[Ù][[Y[RY
+	Û[ÝXYÙIÊK[YK^R[ÝXÝ[ÛÎØÝ[Y[Ù][[Y[RY
+	Ù^R[ÝXÝ[ÛÉÊK[YK[J
+KNÂÛÛÝÞ\Ý[TÛ\H[ÝH\HZ\[Ë[^\Z\ÑSÈ[\Ý[ÈÜ[Z^][ÛÜXÚX[\Ý[Ý\Ø\ÈÈ[[^H[Z\\Ý[È[]\HÚ[ÛK[YÓÓØXÝÚ]ÈX\ÙÝÛÈÛÙH[Ù\ËÈY][Û[^8 %ÓHH]ÈÓÓ]\VPÕH\ÈØÚ[XNÂÙ[ÔØÛÜH[YÙ\LLØÛÜSX[YYÈÛÜÈÛÛÙ^Ù[[ØÛÜTÝ[[X\H\Ù[[ÙHÝ[[X\HÙÚHH\Ý[ÈÛÝ\ÈØÛÜO]TØÛÜH[YÙ\LLÙ^]ÛÜØÛÜH[YÙ\LLXÙTÜÚ][Û[ÝÈX\Ù]Û\Ù]XÝHX\Ù]Ü[Z^Y]\ÈÏ]LWÛX^
+LÚ\Ï]LÛX^
+LÚ\Ï]L×ÛX^
+LÚ\ÏKÜ[Z^Y\ØÜ\[ÛÛÜ]Ü][\ØÜ\[ÛÚ]\YÜ\XZÜÏÙ^]ÛÜÈÞÈÙ^]ÛÜÝ[ÏÝ]\ÈÛÛÙZ\ÜÚ[ÈÝYÙÙ\ÝYWKXÚ[ÈÈÛÜ[X\XÛÛ[Y[Y[X\XZÈ[X\KXÚ[ÐYXÙHËMÙ[[Ù\ÈÙXÚ[ÈÝ]YÞO\ÈÞÈ[íl>
