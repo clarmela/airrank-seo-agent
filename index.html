@@ -460,7 +460,7 @@
   <div class="api-row">
     <label>ANTHROPIC API KEY</label>
     <input type="password" id="apiKey" placeholder="sk-ant-..." autocomplete="off" spellcheck="false" />
-    <span class="api-lock">ð Never stored</span>
+    <span class="api-lock" id="apiLockLabel">ð Never stored</span>
   </div>
 
   <!-- ââ Tabs ââ -->
@@ -1026,6 +1026,32 @@ Return ONLY valid JSON â no markdown, no code fences.`;
 document.addEventListener('keydown', e => {
   if (e.key === 'Enter' && e.ctrlKey) runAnalysis();
 });
+
+/* âââ API Key localStorage persistence âââââââââââââââââââââ */
+(function() {
+  const input = document.getElementById('apiKey');
+  const label = document.getElementById('apiLockLabel');
+  const STORAGE_KEY = 'airrank_api_key';
+
+  // Restore saved key on load
+  const saved = localStorage.getItem(STORAGE_KEY);
+  if (saved) {
+    input.value = saved;
+    label.textContent = 'â Saved locally';
+  }
+
+  // Save on change
+  input.addEventListener('input', () => {
+    const val = input.value.trim();
+    if (val) {
+      localStorage.setItem(STORAGE_KEY, val);
+      label.textContent = 'â Saved locally';
+    } else {
+      localStorage.removeItem(STORAGE_KEY);
+      label.textContent = 'ð Never stored';
+    }
+  });
+})();
 </script>
 </body>
 </html>
